@@ -38,18 +38,19 @@ export const createProduct = async (req, res) => {
     if (isNaN(price)) {
         return res.status(400).json({ message: "El precio debe ser un número" });
     }
-
+    /*
     //Validar que el peso sea un número
     if (isNaN(weight)) {
         return res.status(400).json({ message: "El peso debe ser un número" });
     }
-
+    */
+    /*
     //Validar las dimensiones que acepte cm y m
     const dimensionRegex = /^(?:\d+(?:\.\d+)?\s*(?:cm|m))$/i;
     if (!dimensionRegex.test(dimensions)) {
         return res.status(400).json({ message: "Las dimensiones deben tener el formato correcto" });
     }
-
+    */
     /*
     //Validar que la imagen sea un archivo de tipo imagen
         if (req.file && !req.file.mimetype.startsWith("image")) {
@@ -101,12 +102,12 @@ export const updateProduct = async (req, res) => {
     if (price && isNaN(price)) {
         return res.status(400).json({ message: "El precio debe ser un número" });
     }
-
+    /*
     // Validar que el peso sea un número
     if (weight && isNaN(weight)) {
         return res.status(400).json({ message: "El peso debe ser un número" });
     }
-
+        
     if (dimensions !== undefined && !isValidString(dimensions)) {
         return res.status(400).json({ message: "Dimensiones inválidas" });
     }
@@ -119,6 +120,7 @@ export const updateProduct = async (req, res) => {
     if (material !== undefined && !isValidString(material)) {
         return res.status(400).json({ message: "Material inválido" });
     }
+    */
 
     const photo = req.file ? `../../uploads/${req.file.filename}` : null;
 

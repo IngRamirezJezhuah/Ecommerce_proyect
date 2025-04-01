@@ -1,6 +1,11 @@
 spring:
   application:
     name: ebs-service
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 10MB
 
 server:
   port: 3500
