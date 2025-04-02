@@ -83,7 +83,7 @@ export const createClient = async (req, res) => {
 export const updateClient = async (req, res) => {
     const { id } = req.params;
     const { name, last_name, email, phone, direction } = req.body;
-
+    /*
     if (name !== undefined && !isValidString(name)) {
         return res.status(400).json({ message: "Nombre inválido" });
     }
@@ -119,7 +119,7 @@ export const updateClient = async (req, res) => {
     if (existingPhone) {
         return res.status(400).json({ message: "El teléfono ya está registrado, favor de cambiarlo" });
     }
-
+    */
     try{
         const client = await Client.findByPk(id);
         if (!client){
