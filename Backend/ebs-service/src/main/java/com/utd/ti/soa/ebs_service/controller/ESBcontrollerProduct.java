@@ -28,6 +28,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.utd.ti.soa.ebs_service.model.Product;
+import com.utd.ti.soa.ebs_service.model.Send;
 import com.utd.ti.soa.ebs_service.utils.Auth;
 
 import reactor.core.publisher.Mono;
@@ -57,50 +58,37 @@ public class ESBcontrollerProduct {
                         Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
     }
 
-    @PostMapping(value = "/product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity<String>> createProduct(
-            @RequestPart("name") String name,
-            @RequestPart("price") Float price,
-            @RequestPart("dimensions") String dimensions,
-            @RequestPart("weight") String weight,
-            @RequestPart("description") String description,
-            @RequestPart("productMarlk") String productMarlk,
-            @RequestPart("material") String material,
-            @RequestPart("photo") MultipartFile photo,
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-
+    @DeleteMapping(value = "/product/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<String>> deleteUser(@PathVariable("id") String id,
+                                                   @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         if (!auth.validToken(token)) {
-            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido"));
+            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no válido"));
         }
 
-        System.out.println("📦 Enviando producto a Node.js");
-        System.out.println("📂 Archivo: " + photo.getOriginalFilename());
-        System.out.println("📦 Nombre del producto: " + name);
+        return webClient.delete()
+                .uri("http://api_products:3004/api/products/" + id)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(response -> ResponseEntity.ok().body(response))
+                .onErrorResume(WebClientResponseException.class,
+                        e -> Mono.just(ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString())))
+                .onErrorResume(e ->
+                        Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
+    }
 
-        // Verificar que el archivo sea una imagen válida
-        if (photo.isEmpty() || !photo.getContentType().startsWith("image/")) {
-            return Mono.just(ResponseEntity.badRequest().body("El archivo debe ser una imagen válida"));
-        }
+    @PostMapping(value = "/product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<String>> createSend(@RequestBody Product product) {
 
-        // Construir los datos del formulario multipart
-        MultiValueMap<String, Object> formData = new LinkedMultiValueMap<>();
-        formData.add("name", name);
-        formData.add("price", price);
-        formData.add("dimensions", dimensions);
-        formData.add("weight", weight);
-        formData.add("description", description);
-        formData.add("productMarlk", productMarlk);
-        formData.add("material", material);
-        formData.add("photo", photo.getResource());
+        System.out.println("Enviando solicitud a Node.js product");
 
         return webClient.post()
-                .uri("http://api_products:3004/api/products")
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(BodyInserters.fromMultipartData(formData))
+                .uri("http://localhost:3004/api/products")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(product)
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> {
-                    System.out.println("✅ Respuesta del servicio Node.js: " + response);
+                    System.out.println("Respuesta del servicio Node.js: " + response);
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.APPLICATION_JSON);
                     return ResponseEntity.ok().headers(headers).body(response);
@@ -111,55 +99,18 @@ public class ESBcontrollerProduct {
                         Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
     }
 
-    @PutMapping(value = "/product/update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity<String>> updateProduct(
-            @PathVariable("id") String id,
-            @RequestPart("name") String name,
-            @RequestPart("price") Float price,
-            @RequestPart("dimensions") String dimensions,
-            @RequestPart("weight") String weight,
-            @RequestPart("description") String description,
-            @RequestPart("productMarlk") String productMarlk,
-            @RequestPart("material") String material,
-            @RequestPart("photo") MultipartFile photo,
-            @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-
+    @PatchMapping(value = "/product/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<String>> updateSend(@PathVariable("id") String id,
+                                                   @RequestBody Product product,
+                                                   @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         if (!auth.validToken(token)) {
             return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido"));
         }
 
-        return webClient.put()  // ✅ Usar PUT en vez de PATCH
-                .uri("http://api_products:3004/api/products/" + id)
-                .contentType(MediaType.MULTIPART_FORM_DATA)
-                .body(BodyInserters.fromMultipartData("name", name)
-                        .with("price", price.toString())
-                        .with("dimensions", dimensions)
-                        .with("weight", weight)
-                        .with("description", description)
-                        .with("productMarlk", productMarlk)
-                        .with("material", material)
-                        .with("photo", photo.getResource()))  // ✅ Enviar foto correctamente
-                .retrieve()
-                .bodyToMono(String.class)
-                .map(response -> {
-                    System.out.println("✅ Respuesta del servicio Node.js: " + response);
-                    return ResponseEntity.ok().body(response);
-                })
-                .onErrorResume(WebClientResponseException.class,
-                        e -> Mono.just(ResponseEntity.status(e.getStatusCode()).body(e.getResponseBodyAsString())))
-                .onErrorResume(e ->
-                        Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
-    }
-
-    @DeleteMapping(value = "/product/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity<String>> deleteUser(@PathVariable("id") String id,
-                                                   @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        if (!auth.validToken(token)) {
-            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no válido"));
-        }
-
-        return webClient.delete()
-                .uri("http://api_products:3004/api/products/" + id)
+        return webClient.patch()
+                .uri("hhttp://localhost:3004/api/products/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(product)
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> ResponseEntity.ok().body(response))

@@ -8,12 +8,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Product {
-    private String name;
-    private Float price;
-    private String dimensions;
-    private String weight;
-    private String description;
-    private String productMarlk;
-    private String material;
-    private MultipartFile photo;
+    private Object name;
+    private Object price;
+    private Object dimensions_width;
+    private Object dimensions_height;
+    private Object dimensions_depth;
+    private Object dimensions_type;
+    private Object weight_num;
+    private Object weight_type;
+    private Object description;
+    private Object productMarlk;
+    private Object material;
+    private String photo;
 }

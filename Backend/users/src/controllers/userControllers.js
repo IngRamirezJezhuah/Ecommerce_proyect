@@ -2,14 +2,6 @@ import User from '../models/userModel.js';
 import { userCreatedEvent, userForgetEvent } from '../services/rabbitServicesEvent.js';
 import jwt from 'jsonwebtoken';
 
-export const saludar = async (req, res) => {
-    try{
-        return res.status(200).json({ message: "hola"});
-    } catch (error) {
-        return res.status(500).json({ message: "Error al saludar"});
-    }
-};
-
 export const getUsers = async (req, res) => {
     try{
         const users = await User.findAll();
@@ -68,6 +60,7 @@ export const createUser = async (req, res) => {
             phone,
             username,
             password,
+            rol:"admin",
             status: true,
             creationDate: new Date(),
         });
@@ -158,11 +151,15 @@ export const login = async (req, res) => {
         const {username,password} = req.body;
     
         const existingUser = await User.findOne({ where: { username, password} });
-    
+        
+        if(existingUser.status == false){
+            return res.status(200).json({message:"Acount ban"});
+        }
+
         if (existingUser) {
             const SECRET_KEY = 'aJksd9QzPl+sVdK7vYc/L4dK8HgQmPpQ5K9yApUsj3w';
     
-            const token = jwt.sign({id:existingUser.id, username:existingUser.username}, SECRET_KEY, {expiresIn: "1h"});
+            const token = jwt.sign({id:existingUser.id, username:existingUser.username, rol:existingUser.rol}, SECRET_KEY, {expiresIn: "1h"});
     
             return res.status(200).json({message:"User start login", data:token});
         }else{
@@ -181,6 +178,7 @@ export async function createUserByClient(password, username, phone){
             phone,
             username,
             password,
+            rol:"client",
             status: true,
             creationDate: new Date(),
         });

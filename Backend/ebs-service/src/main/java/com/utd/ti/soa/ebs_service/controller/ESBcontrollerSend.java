@@ -20,7 +20,6 @@ import com.utd.ti.soa.ebs_service.utils.Auth;
 
 import reactor.core.publisher.Mono;
 
-import com.utd.ti.soa.ebs_service.model.Client;
 import com.utd.ti.soa.ebs_service.model.Send;
 
 @RestController
@@ -91,6 +90,7 @@ public class ESBcontrollerSend {
                 .onErrorResume(e ->
                         Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
     }
+
     @DeleteMapping(value = "/send/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity<String>> deleteSend(@PathVariable("id") String id,
                                                    @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {

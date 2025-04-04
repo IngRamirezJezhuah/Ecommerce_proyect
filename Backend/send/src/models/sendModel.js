@@ -7,12 +7,27 @@ const send = sequelize.define('Send', {
         primaryKey: true,
         autoIncrement: true
     },
-    weight: {
+    weight_num: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    weight_type: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: false,
     },
-    packageDimensions: {
+    packageDimensions_width: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    packageDimensions_height: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    packageDimensions_depth: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    packageDimensions_type: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -46,6 +61,11 @@ const send = sequelize.define('Send', {
     },
     deliveryDate: {
         type: DataTypes.DATE
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue:true,
     },
     creationDate: {
         type: DataTypes.DATE,

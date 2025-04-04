@@ -1,7 +1,5 @@
 import Client from '../models/clientModel.js';
 import { clientCreatedEvent } from '../services/rabbitServicesEvent.js';
-import jwt from 'jsonwebtoken';
-import axios from 'axios';
 
 // Validar cadenas vacías
 const isValidString = (value, maxLength = 255) => typeof value === 'string' && value.trim().length > 0 && value.length <= maxLength;
@@ -83,43 +81,31 @@ export const createClient = async (req, res) => {
 export const updateClient = async (req, res) => {
     const { id } = req.params;
     const { name, last_name, email, phone, direction } = req.body;
-    /*
-    if (name !== undefined && !isValidString(name)) {
-        return res.status(400).json({ message: "Nombre inválido" });
-    }
-    if (last_name !== undefined && !isValidString(last_name)) {
-        return res.status(400).json({ message: "Apellido inválido" });
-    }
-    if (email !== undefined && !isValidString(email)) {
-        return res.status(400).json({ message: "Correo inválido" });
-    }
-    if (direction !== undefined && !isValidString(direction)) {
-        return res.status(400).json({ message: "Dirección inválida" });
+    
+    if (name !== undefined && name !== null) {
+        if (!isValidString(name)) {
+            return res.status(400).json({ message: "El name debe ser una cadena de caracteres válida" });
+        }
     }
 
-    // Validación de correo
-    const regexCorreo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (email && !regexCorreo.test(email)) {
-        return res.status(400).json({ message: "El correo no tiene el formato apropiado" });
+    if (last_name !== undefined && last_name !== null) {
+        if (!isValidString(last_name)) {
+            return res.status(400).json({ message: "El last_name debe ser una cadena de caracteres válida" });
+        }
     }
 
-    // Validación de teléfono
-    if (phone && String(phone).length < 10) {
-        return res.status(400).json({ message: "El teléfono tiene menos de 10 caracteres" });
+    if (phone !== undefined && phone !== null) {
+        if (String(phone).length < 10) {
+            return res.status(400).json({ message: "El teléfono tiene menos de 10 caracteres" });
+        }
     }
 
-    // Validación de correo existente
-    const existingEmail = await Client.findOne({ where: { email } });
-    if (existingEmail) {
-        return res.status(400).json({ message: "El Correo ya está registrado, favor de cambiarlo" });
+    if (direction !== undefined && direction !== null) {
+        if (!isValidString(direction)) {
+            return res.status(400).json({ message: "El direction debe ser una cadena de caracteres válida" });
+        }
     }
 
-    // Validación de teléfono existente
-    const existingPhone = await Client.findOne({ where: { phone } });
-    if (existingPhone) {
-        return res.status(400).json({ message: "El teléfono ya está registrado, favor de cambiarlo" });
-    }
-    */
     try{
         const client = await Client.findByPk(id);
         if (!client){
@@ -129,7 +115,6 @@ export const updateClient = async (req, res) => {
         await client.update({
             name: name || Client.name,
             last_name: last_name || Client.last_name,
-            email: email || Client.email,
             phone: phone || Client.phone,
             direction: direction || Client.direction,
         });

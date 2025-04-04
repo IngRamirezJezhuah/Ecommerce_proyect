@@ -15,11 +15,27 @@ const Product = sequelize.define('Product',{
         type: DataTypes.FLOAT,
         allowNull: false,
     },
-    dimensions:{
+    dimensions_width:{
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    dimensions_height:{
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    dimensions_depth:{
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    dimensions_type:{
         type: DataTypes.STRING,
         allowNull: false,
     },
-    weight: {
+    weight_num: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+    },
+    weight_type: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -36,12 +52,17 @@ const Product = sequelize.define('Product',{
         allowNull: false,
     },
     photo: {
-        type: DataTypes.STRING,
+        type: DataTypes.BLOB("long"),
     },
     creationDate: {
         type: DataTypes.DATE,
         allowNull:false,
         defaultValue:DataTypes.NOW,
+    },
+    status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue:true,
     },
 
 }, {
