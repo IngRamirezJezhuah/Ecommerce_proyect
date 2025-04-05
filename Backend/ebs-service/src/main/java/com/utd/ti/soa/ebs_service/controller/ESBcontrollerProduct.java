@@ -76,19 +76,24 @@ public class ESBcontrollerProduct {
                         Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno del servidor")));
     }
 
-    @PostMapping(value = "/product", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity<String>> createSend(@RequestBody Product product) {
+    @PostMapping(value = "/product/crate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity<String>> createSend(@RequestBody Product product,
+        @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+
+        if (!auth.validToken(token)) {
+                return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido"));
+        }
 
         System.out.println("Enviando solicitud a Node.js product");
-
+        
         return webClient.post()
-                .uri("http://localhost:3004/api/products")
+                .uri("http://api_products:3004/api/products")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(product)
                 .retrieve()
                 .bodyToMono(String.class)
                 .map(response -> {
-                    System.out.println("Respuesta del servicio Node.js: " + response);
+                    System.out.println("✅ Respuesta del servicio Node.js: " + response);
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.APPLICATION_JSON);
                     return ResponseEntity.ok().headers(headers).body(response);
@@ -108,7 +113,7 @@ public class ESBcontrollerProduct {
         }
 
         return webClient.patch()
-                .uri("hhttp://localhost:3004/api/products/" + id)
+                .uri("http://api_products:3004/api/products/" + id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(product)
                 .retrieve()

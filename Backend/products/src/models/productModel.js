@@ -52,7 +52,8 @@ const Product = sequelize.define('Product',{
         allowNull: false,
     },
     photo: {
-        type: DataTypes.BLOB("long"),
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     creationDate: {
         type: DataTypes.DATE,

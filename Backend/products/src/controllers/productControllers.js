@@ -16,20 +16,8 @@ const isValidString = (value, maxLength = 255) => typeof value === 'string' && v
 export const getProduct = async (req, res) => {
     try{
         const Products = await Product.findAll();
-        
-        // Convertir el campo 'photo' de cada producto a Base64
-        const productsWithPhotoBase64 = Products.map(product => {
-            // Verificar si el producto tiene una foto y convertirla a Base64
-            const photoBase64 = product.photo ? product.photo.toString('base64') : null;
 
-            // Devolver el producto con la imagen en Base64
-            return {
-                ...product.toJSON(), // Convertir el objeto Sequelize a JSON
-                photo: photoBase64,   // Agregar la foto convertida en Base64
-            };
-        });
-
-        res.status(200).json(productsWithPhotoBase64);
+        res.status(200).json(Products);
     } catch (error) {
         console.error('Error en la sistama de productos: ', error);
         res.status(500)
@@ -126,13 +114,10 @@ export const createProduct = async (req, res) => {
     }
 
     // Validar que la foto esté en Base64
-    const base64Pattern = /^data:image\/(png|jpeg|jpg|gif);base64,/;
-    if (!base64Pattern.test(photo)) {
-        return res.status(400).json({ message: "La foto debe estar en formato Base64." });
+    const urlPattern = /^(https?:\/\/)[\w.-]+\.[a-z]{2,}([\/\w .-]*)*\/?$/i;
+    if (!urlPattern.test(photo)) {
+        return res.status(400).json({ message: "La foto debe ser una URL válida." });
     }
-
-    // Si la imagen está en base64, conviértela en un Buffer
-    const photoBuffer = Buffer.from(photo, 'base64');
 
     try {
         const newProduct = await Product.create({
@@ -147,7 +132,7 @@ export const createProduct = async (req, res) => {
             description,
             productMarlk,
             material,
-            photo: photoBuffer,
+            photo,
             status: true,
             creationDate: new Date(),
         });
@@ -264,11 +249,10 @@ export const updateProduct = async (req, res) => {
         }
     }
 
-    // Validar que la foto esté en Base64
     if (photo !== undefined && photo !== null) {
-        const base64Pattern = /^data:image\/(png|jpeg|jpg|gif);base64,/;
-        if (!base64Pattern.test(photo)) {
-            return res.status(400).json({ message: "La foto debe estar en formato Base64." });
+        const urlPattern = /^(https?:\/\/)[\w.-]+\.[a-z]{2,}([\/\w .-]*)*\/?$/i;
+        if (!urlPattern.test(photo)) {
+            return res.status(400).json({ message: "La foto debe ser una URL válida." });
         }
     }
 

@@ -29,7 +29,12 @@ public class ESBcontrollerSend {
     private final Auth auth = new Auth();
 
     @PostMapping(value = "/send", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity<String>> createSend(@RequestBody Send send) {
+    public Mono<ResponseEntity<String>> createSend(@RequestBody Send send,
+        @RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+
+        if (!auth.validToken(token)) {
+                return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido"));
+        }
 
         System.out.println("Enviando solicitud a Node.js user");
 
