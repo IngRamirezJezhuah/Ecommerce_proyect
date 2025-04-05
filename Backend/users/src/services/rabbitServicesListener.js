@@ -27,6 +27,7 @@ export async function userEvents() {
                 
                 //Crea usuario
                 createUserByClient(123456789, response.email, response.phone);
+                channel.ack(msg);
             }
         }, { noAck: false });
 
