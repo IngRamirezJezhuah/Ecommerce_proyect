@@ -9,15 +9,17 @@ import OfferCard from '../components/OfferCard';
 
 // 1. Definir colores primero
 const colors = {
-  primary: '#4CAF50',
-  secondary: '#FF5722',
-  white: '#FFFFFF',
-  gray: '#757575',
-  danger: '#F44336',
-  background: '#F8F9FA',
-  text: '#212121',
-  lightGray: '#E0E0E0'
+    primary: '#4CAF50',
+    secondary: '#FF5722',
+    white: '#FFFFFF',
+    gray: '#757575',
+    danger: '#F44336',
+    background: '#F8F9FA',
+    text: '#212121',
+    lightGray: '#E0E0E0'
 };
+
+
 
 const products = [{ id: '1', name: 'PlayStation 5', price: '12,999', imageUrl: 'https://png.pngtree.com/png-clipart/20250104/original/pngtree-ps-5-or-playstation-set-with-game-controller-png-image_19792765.png', description: 'Consola de última generación con SSD ultrarrápido, soporte para 4K/120fps y tecnología haptic feedback en los mandos.',category: 'Electrónicos',rating: 4.9,inStock: true},
     { id: '2', name: 'Zapatillas Running', price: '1,499', imageUrl: 'https://w7.pngwing.com/pngs/253/472/png-transparent-sneakers-nike-shoe-clothing-blue-running-shoes-blue-white-fashion.png', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Deportes',rating: 4.5,inStock: true},

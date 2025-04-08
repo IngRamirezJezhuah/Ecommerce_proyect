@@ -2,26 +2,27 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Image, ScrollView, StyleSheet, TouchableOpacity, SafeAreaView,Platform,Dimensions } from 'react-native';
 
 const colors = {
-  primary: '#625dff',
-  white: '#FFFFFF',
-  background: '#f9f9f9',
-  text: '#333333',
-  gray: '#656568'
+    primary: '#625dff',
+    white: '#FFFFFF',
+    background: '#f9f9f9',
+    text: '#333333',
+    gray: '#656568'
 };
 
 const { width } = Dimensions.get('window');
 
 const categories = [
-    { id: "1", title: "Electronica", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Laptop_der_Marke_exone_go_20240203_HOF06886_RAW-Export_000276.png/1231px-Laptop_der_Marke_exone_go_20240203_HOF06886_RAW-Export_000276.png?20240312123657"},
-    { id: "2", title: "Ropa", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Shirts_of_Salem.jpg/640px-Shirts_of_Salem.jpg"},
-    { id: "3", title: "Muebles", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Furniture_exhibits_in_Masfurniture%2C_Hunsur_%286%29.jpg/640px-Furniture_exhibits_in_Masfurniture%2C_Hunsur_%286%29.jpg"},
-    { id: "4", title: "Juguetes", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Mexican_guitars_and_toys.jpg/640px-Mexican_guitars_and_toys.jpg"},
+    { id: "1", title: "Anime", imageUrl: "https://i.pinimg.com/736x/0f/e6/49/0fe6495c2f0ffe1b753cc0ab4b4f8de1.jpg"},
+    { id: "2", title: "Max Factory", imageUrl: "https://i.pinimg.com/736x/5e/c9/e2/5ec9e2efdd77f0c90126ea1b812762db.jpg"},
+    { id: "3", title: "Mecas", imageUrl: "https://i.pinimg.com/736x/98/e2/9c/98e29c200986e4280accf96ddd05a47d.jpg"},
+    { id: "4", title: "Juguetes", imageUrl: "https://i.pinimg.com/736x/3d/f7/a1/3df7a1ad76a2bfd7e51e00ffb8b90a13.jpg"},
 ];
 
 const carouselImages = [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Laptop_der_Marke_exone_go_20240203_HOF06886_RAW-Export_000276.png/1231px-Laptop_der_Marke_exone_go_20240203_HOF06886_RAW-Export_000276.png?20240312123657",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Shirts_of_Salem.jpg/640px-Shirts_of_Salem.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Furniture_exhibits_in_Masfurniture%2C_Hunsur_%286%29.jpg/640px-Furniture_exhibits_in_Masfurniture%2C_Hunsur_%286%29.jpg",
+    "https://i.pinimg.com/736x/82/b1/bc/82b1bc7a317a2d366495a52105bd82f1.jpg",
+    "https://i.pinimg.com/736x/2b/74/ea/2b74ea0945047f551482731059a8fb1f.jpg",
+    "https://i.pinimg.com/736x/76/b1/f7/76b1f7e88a85b1f957ebc5da70e82090.jpg",
+    "https://i.pinimg.com/736x/a7/57/59/a75759cdfa03a19f3b6df9eb890418cd.jpg",
 ];
 
 const Home = () => {
@@ -29,13 +30,13 @@ const Home = () => {
 
     const goToNextImage = () => {
         setCurrentImage((prev) => 
-          prev === carouselImages.length - 1 ? 0 : prev + 1
+            prev === carouselImages.length - 1 ? 0 : prev + 1
         );
     };
 
     const goToPrevImage = () => {
         setCurrentImage((prev) => 
-          prev === 0 ? carouselImages.length - 1 : prev - 1
+            prev === 0 ? carouselImages.length - 1 : prev - 1
         );
     };
 
@@ -164,16 +165,18 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     carouselContainer: {
-        height: 180,
+        padding: 10,
+        width: width -40,
+        height: 300,
         justifyContent: "center",
         alignItems: "center",
         marginBottom: 25,
         position: 'relative',
     },
     carouselImage: {
-        width: width - 40,
+        width: width - 30,
         height: '100%',
-        borderRadius: 15,
+        borderRadius: 20,
     },
     carouselButtonLeft: {
         position: 'absolute',
