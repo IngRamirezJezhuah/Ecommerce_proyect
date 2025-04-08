@@ -9,6 +9,7 @@ import Cart from '../screens/Cart';
 import ProductList from '../screens/ProductList';
 import Profile from '../screens/Profile';
 import Shipments from '../screens/Shipments';
+import Login from '../screens/Login';
 
 // Theme
 const colors = {
@@ -24,7 +25,7 @@ const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
   // Ejemplo: Número dinámico de items en carrito (puedes usar Context/Redux luego)
-  const cartItemCount = 3;
+  const cartItemCount = 2;
 
   return (
     <Tab.Navigator
@@ -37,10 +38,9 @@ const TabNavigator = () => {
           elevation: 10,
           shadowOpacity: 0.1,
           height: 60,
-          paddingBottom: 5,
-          // BONUS: Efecto flotante
+          paddingBottom: 1,
           position: 'absolute',
-          bottom: 20,
+          bottom: 10,
           left: 20,
           right: 20,
           borderRadius: 15,
@@ -103,6 +103,15 @@ const TabNavigator = () => {
       <Tab.Screen
         name="Cuenta"
         component={Profile}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-circle" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Login"
+        component={Login}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-circle" size={size} color={color} />

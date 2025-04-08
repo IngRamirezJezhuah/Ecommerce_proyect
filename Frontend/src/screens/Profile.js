@@ -4,9 +4,9 @@ import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 
 const Profile = () => {
-    const [name, setName] = useState('Oscar');
-    const [email, setEmail] = useState('oscar.perez@example.com');
-    const [image, setImage] = useState('https://randomuser.me/api/portraits/men/1.jpg');
+    const [name, setName] = useState('DJ');
+    const [email, setEmail] = useState('david.jezhuah@example.com');
+    const [image, setImage] = useState('https://i.pinimg.com/736x/9f/a7/14/9fa714d16457e8987212eef84801b7fd.jpg');
     const [isEditing, setIsEditing] = useState(false); // Cambiado de 'editing' a 'isEditing'
 
     const handleChangeProfileImage = async () => {

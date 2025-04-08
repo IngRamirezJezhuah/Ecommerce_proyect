@@ -5,6 +5,10 @@ import { Ionicons } from '@expo/vector-icons';
 const { width: screenWidth } = Dimensions.get('window');
 
 const ProductCard = ({ product, onPress }) => {
+    if (!product) {
+        return null; // No renderiza nada si `product` es undefined
+    }
+
     return (
         <TouchableOpacity 
             style={[styles.card, !product.inStock && styles.disabledCard]}
@@ -38,6 +42,7 @@ const ProductCard = ({ product, onPress }) => {
         </TouchableOpacity>
     );
 };
+
 
 const styles = StyleSheet.create({
     card: {

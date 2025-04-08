@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { 
-  View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, 
-  SafeAreaView, TextInput, Alert, Dimensions, Image, ScrollView, Animated 
+    View, Text, FlatList, StyleSheet, TouchableOpacity, Modal, 
+    SafeAreaView, TextInput, Alert, Dimensions, Image, ScrollView, Animated 
 } from 'react-native';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import ProductCard from '../components/ProductCard';
@@ -21,16 +21,23 @@ const colors = {
 
 
 
-const products = [{ id: '1', name: 'PlayStation 5', price: '12,999', imageUrl: 'https://png.pngtree.com/png-clipart/20250104/original/pngtree-ps-5-or-playstation-set-with-game-controller-png-image_19792765.png', description: 'Consola de última generación con SSD ultrarrápido, soporte para 4K/120fps y tecnología haptic feedback en los mandos.',category: 'Electrónicos',rating: 4.9,inStock: true},
-    { id: '2', name: 'Zapatillas Running', price: '1,499', imageUrl: 'https://w7.pngwing.com/pngs/253/472/png-transparent-sneakers-nike-shoe-clothing-blue-running-shoes-blue-white-fashion.png', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Deportes',rating: 4.5,inStock: true},
-    { id: '3', name: 'Smart TV 55" 4K', price: '9,999', imageUrl: 'https://png.pngtree.com/png-vector/20230902/ourmid/pngtree-realistic-led-tv-png-image_9935632.png', description: 'Televisor inteligente con resolución 4K UHD, HDR10+ y sistema operativo integrado con acceso a todas las plataformas de streaming.',category: 'Electrónicos',rating: 4.7,inStock: false},
-    { id: '4', name: 'Set de Cocina Premium', price: '2,499', imageUrl: 'https://img.freepik.com/foto-gratis/coleccion-vajilla-vista-superior_23-2148861770.jpg', description: 'Juego de 12 piezas de acero inoxidable 18/10 con mangos ergonómicos antiadherentes.',category: 'Hogar',rating: 4.8,inStock: true}];
+const products = [
+    { id: '1', name: 'Shoto Todoroki', price: '12,999', imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg', description: 'Consola de última generación con SSD ultrarrápido, soporte para 4K/120fps y tecnología haptic feedback en los mandos.',category: 'Anime',rating: 4.9,inStock: true},
+    { id: '2', name: 'Zenku Ishigami', price: '1,499', imageUrl: 'https://i.pinimg.com/736x/2e/e4/0c/2ee40c87ddb7c9ce2be7a555fa8739c0.jpg', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Max Factory',rating: 4.5,inStock: true},
+    { id: '3', name: 'Envangelion Meca EVA-01', price: '9,999', imageUrl: 'https://i.pinimg.com/736x/a1/e1/46/a1e1469ec18bd4eb2434094f7109f9cd.jpg', description: 'Televisor inteligente con resolución 4K UHD, HDR10+ y sistema operativo integrado con acceso a todas las plataformas de streaming.',category: 'Mecas',rating: 4.7,inStock: false},
+    { id: '4', name: 'Peluche Zenku llavero', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/0c/7d/73/0c7d734755e344729b4dac6ab1febe44.jpg', description: 'Juego de 12 piezas de acero inoxidable 18/10 con mangos ergonómicos antiadherentes.',category: 'Jugetes',rating: 4.8,inStock: true},
+    { id: '', name: '', price: '2,499', imageUrl: '', description: '',category: 'Jugetes',rating: 4.8,inStock: true},
+    { id: '', name: '', price: '2,499', imageUrl: '', description: '',category: 'Jugetes',rating: 4.8,inStock: true},
+    
+];
 
-const offers = [{ id: '1', title: '30% OFF EN ELECTRÓNICOS', imageUrl: 'https://png.pngtree.com/element_our/20190524/ourmid/pngtree-2-5d-electronic-device-laptop-vector-element-image_1101889.jpg', cardcolor: '#FF5722'},
+const offers = [
+    { id: '1', title: '30% OFF EN ELECTRÓNICOS', imageUrl: 'https://png.pngtree.com/element_our/20190524/ourmid/pngtree-2-5d-electronic-device-laptop-vector-element-image_1101889.jpg', cardcolor: '#FF5722'},
     { id: '2', title: 'ENVÍO GRATIS + 10% OFF', imageUrl: 'https://w7.pngwing.com/pngs/877/52/png-transparent-freight-transport-rail-transport-logo-parcel-free-shipping-freight-transport-text-rectangle-thumbnail.png', cardcolor: '#2196F3'},
-    { id: '3', title: '2X1 EN HOGAR', imageUrl: 'https://w7.pngwing.com/pngs/86/825/png-transparent-couch-furniture-textile-cushion-chair-home-furniture-angle-fashion-grey-thumbnail.png', cardcolor: '#4CAF50'}];
-
-const categories = ['Todos', 'Electrónicos', 'Deportes', 'Hogar', 'Ropa'];
+    { id: '3', title: '2X1 EN HOGAR', imageUrl: 'https://w7.pngwing.com/pngs/86/825/png-transparent-couch-furniture-textile-cushion-chair-home-furniture-angle-fashion-grey-thumbnail.png', cardcolor: '#4CAF50'}
+];
+//category: 'Anime' category: 'Max Factory' category: 'Mecas' category: 'Jugetes'
+const categories = ['Todos','Anime','Max Factory','Mecas','Jugetes'];
 
 const ProductList = () => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -42,26 +49,26 @@ const ProductList = () => {
 
     const getFilteredProducts = () => {
         return products.filter(product => {
-          const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-          const matchesCategory = selectedCategory === 'Todos' || product.category === selectedCategory;
-          return matchesSearch && matchesCategory;
+            const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+            const matchesCategory = selectedCategory === 'Todos' || product.category === selectedCategory;
+            return matchesSearch && matchesCategory;
         });
     };
 
     const renderCategoryItem = ({ item }) => (
         <TouchableOpacity
-          style={[
-            styles.categoryButton,
-            selectedCategory === item && styles.selectedCategoryButton
-          ]}
-          onPress={() => setSelectedCategory(item)}
+            style={[
+                styles.categoryButton,
+                selectedCategory === item && styles.selectedCategoryButton
+            ]}
+            onPress={() => setSelectedCategory(item)}
         >
-          <Text style={[
-            styles.categoryText,
-            selectedCategory === item && styles.selectedCategoryText
-          ]}>
-            {item}
-          </Text>
+            <Text style={[
+                styles.categoryText,
+                selectedCategory === item && styles.selectedCategoryText
+            ]}>
+                {item}
+            </Text>
         </TouchableOpacity>
     );
 
