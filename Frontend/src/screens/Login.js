@@ -14,7 +14,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('https://ecommerceproyectserviceebs-se-production.up.railway.app/api/users/login', {
+      const response = await fetch('https://ecommerceproyectserviceebs-se-production.up.railway.app/api/v1/esb/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

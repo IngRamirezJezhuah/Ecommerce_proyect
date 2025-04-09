@@ -12,7 +12,7 @@ const OfferCard = ({ details }) => {
                 <TouchableOpacity 
                     style={styles.button}
                     activeOpacity={0.7}
-                    onPress={() => alert('Información sobre la promoción')}
+                    onPress={() => alert('Conpra ahora paga despues, aprovehca y no pierdas el tiempo')}
                 >
                     <Text style={styles.buttonText}>Conocer más</Text>
                     <MaterialIcons name="arrow-forward" size={16} color={details.cardcolor} />

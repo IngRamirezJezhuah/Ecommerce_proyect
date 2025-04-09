@@ -26,15 +26,15 @@ const products = [
     { id: '2', name: 'Zenku Ishigami', price: '1,499', imageUrl: 'https://i.pinimg.com/736x/2e/e4/0c/2ee40c87ddb7c9ce2be7a555fa8739c0.jpg', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Max Factory',rating: 4.5,inStock: true},
     { id: '3', name: 'Envangelion Meca EVA-01', price: '9,999', imageUrl: 'https://i.pinimg.com/736x/a1/e1/46/a1e1469ec18bd4eb2434094f7109f9cd.jpg', description: 'Televisor inteligente con resolución 4K UHD, HDR10+ y sistema operativo integrado con acceso a todas las plataformas de streaming.',category: 'Mecas',rating: 4.7,inStock: false},
     { id: '4', name: 'Peluche Zenku llavero', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/0c/7d/73/0c7d734755e344729b4dac6ab1febe44.jpg', description: 'Juego de 12 piezas de acero inoxidable 18/10 con mangos ergonómicos antiadherentes.',category: 'Jugetes',rating: 4.8,inStock: true},
-    { id: '5', name: 'Frieren', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/fb/d4/a2/fbd4a2ba40698f5d4afc5b91c587014a.jpg', description: 'Figura collecionable escala 3/4 del anime sousou no frieren',category: 'Jugetes',rating: 4.8,inStock: true},
-    { id: '', name: '', price: '2,499', imageUrl: '', description: '',category: 'Jugetes',rating: 4.8,inStock: true},
+    { id: '5', name: 'Frieren', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/fb/d4/a2/fbd4a2ba40698f5d4afc5b91c587014a.jpg', description: 'Figura collecionable escala 3/4 del anime sousou no frieren',category: 'Anime',rating: 4.8,inStock: true},
+    { id: '6', name: 'NeferPitou', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/1b/17/71/1b17717560cd059430cac0343ed5bf38.jpg', description: 'hunterxhunter personaje de anime figura de plastico',category: 'Max Factory',rating: 4.8,inStock: true},
     
 ];
 
 const offers = [
-    { id: '1', title: '30% OFF EN ELECTRÓNICOS', imageUrl: 'https://png.pngtree.com/element_our/20190524/ourmid/pngtree-2-5d-electronic-device-laptop-vector-element-image_1101889.jpg', cardcolor: '#f2b06f'},
-    { id: '2', title: 'ENVÍO GRATIS + 10% OFF', imageUrl: 'https://w7.pngwing.com/pngs/877/52/png-transparent-freight-transport-rail-transport-logo-parcel-free-shipping-freight-transport-text-rectangle-thumbnail.png', cardcolor: '#2196F3'},
-    { id: '3', title: '2X1 EN HOGAR', imageUrl: 'https://w7.pngwing.com/pngs/86/825/png-transparent-couch-furniture-textile-cushion-chair-home-furniture-angle-fashion-grey-thumbnail.png', cardcolor: '#4CAF50'}
+    { id: '1', title: '30% OFF EN PRODUCTOS DE MAX-FACTORY', imageUrl: 'https://i.pinimg.com/736x/32/47/4c/32474c2bab1809f984d57b42f61e6fa8.jpg', cardcolor: '#f2b06f'},
+    { id: '2', title: '2X1 EN FIGURAS', imageUrl: 'https://i.pinimg.com/736x/e8/87/1d/e8871df049834c081f7019d45956b82c.jpg', cardcolor: '#4CAF50'},
+    { id: '3', title: 'ENVÍO GRATIS + 10% OFF', imageUrl: 'https://i.pinimg.com/736x/64/d7/64/64d7643c50dc9458f7a3f963873acc69.jpg', cardcolor: '#2196F3'}
 ];
 //category: 'Anime' category: 'Max Factory' category: 'Mecas' category: 'Jugetes'
 const categories = ['Todos','Anime','Max Factory','Mecas','Jugetes'];

@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, Image, TouchableOpacity, Alert, ScrollView, SafeAreaView, StatusBar  } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Login from './Login';
+import { AuthContext } from '../../App'; // ajusta la ruta si es necesario
 
-const Profile = () => {
+
+
+const Profile = ({navigation}) => {
     const [name, setName] = useState('DJ');
     const [email, setEmail] = useState('david.jezhuah@example.com');
     const [image, setImage] = useState('https://i.pinimg.com/736x/9f/a7/14/9fa714d16457e8987212eef84801b7fd.jpg');
     const [isEditing, setIsEditing] = useState(false); // Cambiado de 'editing' a 'isEditing'
+
+    const { setIsAuthenticated } = useContext(AuthContext);
 
     const handleChangeProfileImage = async () => {
         const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -28,6 +35,11 @@ const Profile = () => {
             setImage(result.assets[0].uri);
             Alert.alert('¡Listo!', 'Tu foto de perfil ha sido actualizada');
         }
+
+        if (response.ok && data.data) {
+            await AsyncStorage.setItem('authToken', data.data.token); // 👈 guarda el token
+            setIsAuthenticated(true);
+        }          
     };
 
     const handleSaveChanges = () => {
@@ -38,6 +50,32 @@ const Profile = () => {
     const toggleEdit = () => {
         setIsEditing(!isEditing); // Actualizado para usar setIsEditing
     };
+
+    const handleLogout = async () => {
+        Alert.alert(
+            'Cerrar sesión',
+            '¿Estás seguro de que quieres salir?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel'
+                },
+                { 
+                    text: 'Salir', 
+                    onPress: async () => {
+                        try {
+                            await AsyncStorage.removeItem('authToken');
+                            setIsAuthenticated(false); // 👈 esto hará que cambie de stack
+                        } catch (error) {
+                            console.error('Error al cerrar sesión:', error);
+                            Alert.alert('Error', 'No se pudo cerrar la sesión');
+                        }
+                    }
+                }
+            ]
+        );
+    };
+    
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -93,15 +131,23 @@ const Profile = () => {
                             />
                         </View>
 
-                        {isEditing && ( // Actualizado
+                        {isEditing ? ( // Actualizado
                             <TouchableOpacity 
                                 style={styles.saveButton}
                                 onPress={handleSaveChanges}
                             >
                                 <Text style={styles.saveButtonText}>Guardar cambios</Text>
                             </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity 
+                                style={styles.logoutButton}
+                                onPress={handleLogout}
+                            >
+                                <Text style={styles.logoutButtonText}>Cerrar sesión</Text>
+                            </TouchableOpacity>
                         )}
                     </View>
+                    
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -203,6 +249,19 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     saveButtonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    logoutButton: {
+        backgroundColor: '#ff3b30',
+        height: 50,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    logoutButtonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: '600',
