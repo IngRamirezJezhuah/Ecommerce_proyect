@@ -17,16 +17,16 @@ const Cart = () => {
     const [cart, setCart] = useState([
         { 
           id: '1', 
-          name: 'Smartphone X Pro', 
-          price: 199, 
-          imageUrl: 'https://picsum.photos/200/200?random=1',
+          name: 'Shoto todoroki', 
+          price: 1800, 
+          imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg',
           quantity: 1 
         },
         { 
           id: '2', 
-          name: 'Laptop Elite', 
-          price: 999, 
-          imageUrl: 'https://picsum.photos/200/200?random=2',
+          name: 'Frieren', 
+          price: 2499, 
+          imageUrl: 'https://i.pinimg.com/736x/fb/d4/a2/fbd4a2ba40698f5d4afc5b91c587014a.jpg',
           quantity: 1 
         },
     ]);

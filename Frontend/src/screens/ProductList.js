@@ -22,7 +22,7 @@ const colors = {
 
 
 const products = [
-    { id: '1', name: 'Shoto Todoroki', price: '2,999', imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg', description: 'Figura de accion de la compañia banthai shonen, Personaje shoto todoroki',category: 'Anime',rating: 4.9,inStock: true},
+    { id: '1', name: 'Shoto Todoroki', price: '1800', imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg', description: 'Figura de accion de la compañia banthai shonen, Personaje shoto todoroki',category: 'Anime',rating: 4.9,inStock: true},
     { id: '2', name: 'Zenku Ishigami', price: '1,499', imageUrl: 'https://i.pinimg.com/736x/2e/e4/0c/2ee40c87ddb7c9ce2be7a555fa8739c0.jpg', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Max Factory',rating: 4.5,inStock: true},
     { id: '3', name: 'Envangelion Meca EVA-01', price: '9,999', imageUrl: 'https://i.pinimg.com/736x/a1/e1/46/a1e1469ec18bd4eb2434094f7109f9cd.jpg', description: 'Televisor inteligente con resolución 4K UHD, HDR10+ y sistema operativo integrado con acceso a todas las plataformas de streaming.',category: 'Mecas',rating: 4.7,inStock: false},
     { id: '4', name: 'Peluche Zenku llavero', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/0c/7d/73/0c7d734755e344729b4dac6ab1febe44.jpg', description: 'Juego de 12 piezas de acero inoxidable 18/10 con mangos ergonómicos antiadherentes.',category: 'Jugetes',rating: 4.8,inStock: true},
@@ -115,7 +115,7 @@ const ProductList = () => {
         <SafeAreaView style={styles.safeArea}>
             <ScrollView style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.user}>Hola, Usuario</Text>
+                    <Text style={styles.user}>Hola, David Ramirez</Text>
                     <View style={styles.searchContainer}>
                         <Ionicons name="search" size={20} color={colors.gray} />
                         <TextInput
