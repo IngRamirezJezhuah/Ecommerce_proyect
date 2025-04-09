@@ -14,7 +14,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch('http://192.168.1.6:3001/api/users/login', {
+      const response = await fetch('https://ecommerceproyectserviceebs-se-production.up.railway.app/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
