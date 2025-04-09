@@ -22,17 +22,17 @@ const colors = {
 
 
 const products = [
-    { id: '1', name: 'Shoto Todoroki', price: '12,999', imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg', description: 'Consola de última generación con SSD ultrarrápido, soporte para 4K/120fps y tecnología haptic feedback en los mandos.',category: 'Anime',rating: 4.9,inStock: true},
+    { id: '1', name: 'Shoto Todoroki', price: '2,999', imageUrl: 'https://i.pinimg.com/736x/1b/d7/f4/1bd7f4456c6cc38b9a91a9884acc3ff8.jpg', description: 'Figura de accion de la compañia banthai shonen, Personaje shoto todoroki',category: 'Anime',rating: 4.9,inStock: true},
     { id: '2', name: 'Zenku Ishigami', price: '1,499', imageUrl: 'https://i.pinimg.com/736x/2e/e4/0c/2ee40c87ddb7c9ce2be7a555fa8739c0.jpg', description: 'Zapatillas deportivas con amortiguación reactiva y diseño ergonómico para máximo confort en tus carreras.',category: 'Max Factory',rating: 4.5,inStock: true},
     { id: '3', name: 'Envangelion Meca EVA-01', price: '9,999', imageUrl: 'https://i.pinimg.com/736x/a1/e1/46/a1e1469ec18bd4eb2434094f7109f9cd.jpg', description: 'Televisor inteligente con resolución 4K UHD, HDR10+ y sistema operativo integrado con acceso a todas las plataformas de streaming.',category: 'Mecas',rating: 4.7,inStock: false},
     { id: '4', name: 'Peluche Zenku llavero', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/0c/7d/73/0c7d734755e344729b4dac6ab1febe44.jpg', description: 'Juego de 12 piezas de acero inoxidable 18/10 con mangos ergonómicos antiadherentes.',category: 'Jugetes',rating: 4.8,inStock: true},
-    { id: '', name: '', price: '2,499', imageUrl: '', description: '',category: 'Jugetes',rating: 4.8,inStock: true},
+    { id: '5', name: 'Frieren', price: '2,499', imageUrl: 'https://i.pinimg.com/736x/fb/d4/a2/fbd4a2ba40698f5d4afc5b91c587014a.jpg', description: 'Figura collecionable escala 3/4 del anime sousou no frieren',category: 'Jugetes',rating: 4.8,inStock: true},
     { id: '', name: '', price: '2,499', imageUrl: '', description: '',category: 'Jugetes',rating: 4.8,inStock: true},
     
 ];
 
 const offers = [
-    { id: '1', title: '30% OFF EN ELECTRÓNICOS', imageUrl: 'https://png.pngtree.com/element_our/20190524/ourmid/pngtree-2-5d-electronic-device-laptop-vector-element-image_1101889.jpg', cardcolor: '#FF5722'},
+    { id: '1', title: '30% OFF EN ELECTRÓNICOS', imageUrl: 'https://png.pngtree.com/element_our/20190524/ourmid/pngtree-2-5d-electronic-device-laptop-vector-element-image_1101889.jpg', cardcolor: '#f2b06f'},
     { id: '2', title: 'ENVÍO GRATIS + 10% OFF', imageUrl: 'https://w7.pngwing.com/pngs/877/52/png-transparent-freight-transport-rail-transport-logo-parcel-free-shipping-freight-transport-text-rectangle-thumbnail.png', cardcolor: '#2196F3'},
     { id: '3', title: '2X1 EN HOGAR', imageUrl: 'https://w7.pngwing.com/pngs/86/825/png-transparent-couch-furniture-textile-cushion-chair-home-furniture-angle-fashion-grey-thumbnail.png', cardcolor: '#4CAF50'}
 ];
@@ -165,6 +165,7 @@ const ProductList = () => {
                     numColumns={2}
                     columnWrapperStyle={styles.productsGrid}
                     scrollEnabled={false}
+                    style={styles.summaryCard}
                 />
             </ScrollView>
 
@@ -236,6 +237,13 @@ const ProductList = () => {
 };
 
 const styles = StyleSheet.create({
+    summaryCard: {
+        backgroundColor: '#ffff',
+        borderRadius: 10,
+        padding: 16,
+        marginTop: 3,
+        paddingBottom: 70,
+        },
     safeArea: {
         flex: 1,
         backgroundColor: colors.background,

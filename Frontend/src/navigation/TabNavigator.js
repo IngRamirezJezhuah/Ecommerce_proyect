@@ -40,7 +40,7 @@ const TabNavigator = () => {
           height: 60,
           paddingBottom: 1,
           position: 'absolute',
-          bottom: 10,
+          bottom: 15,
           left: 20,
           right: 20,
           borderRadius: 15,
@@ -60,7 +60,7 @@ const TabNavigator = () => {
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-sharp" size={size} color={color} />
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -109,15 +109,6 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-circle" size={size} color={color} />
-          ),
-        }}
-      />
     </Tab.Navigator>
   );
 };
@@ -129,7 +120,7 @@ const styles = StyleSheet.create({
   badge: {
     position: 'absolute',
     right: -8,
-    top: -5,
+    top: -2,
     backgroundColor: colors.danger,
     borderRadius: 10,
     width: 18,

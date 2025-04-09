@@ -1,60 +1,53 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity } from 'react-native';
+import { AuthContext } from '../../App';
 
-const Login = ({ navigation }) => {
-  const [email, setEmail] = useState('');
+const Login = () => {
+  const { setIsAuthenticated } = useContext(AuthContext);
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
-  // Función para hacer el login
   const handleLogin = async () => {
-    if (!email || !password) {
-      Alert.alert('Error', 'Por favor, ingresa tu correo y contraseña');
+    if (!username || !password) {
+      Alert.alert('Campos vacíos', 'Por favor, llena todos los campos');
       return;
     }
 
-    setIsLoading(true);
-
     try {
-      const response = await fetch('http://192.168.x.x:3001/api/users/login', {
+      const response = await fetch('http://192.168.1.6:3001/api/users/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await response.json();
 
-      if (response.status === 200) {
-        // Aquí puedes almacenar el token o los datos del usuario si lo deseas
-        Alert.alert('Bienvenido', 'Has iniciado sesión correctamente');
-        navigation.navigate('Home'); // O la pantalla a la que quieras redirigir después del login
+      if (response.ok && data.data) {
+        Alert.alert('Éxito', 'Inicio de sesión exitoso');
+        setIsAuthenticated(true);
       } else {
-        Alert.alert('Error', data.message || 'Error al iniciar sesión');
+        Alert.alert('Error', data.message || 'Credenciales incorrectas');
       }
     } catch (error) {
-      console.error('Error al hacer login:', error);
-      Alert.alert('Error', 'No se pudo conectar al servidor');
-    } finally {
-      setIsLoading(false);
+      Alert.alert('Error', 'Algo salió mal');
+      console.error(error);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Iniciar Sesión</Text>
-      
+      <Text style={styles.title}>Iniciar sesión</Text>
+
       <TextInput
         style={styles.input}
-        placeholder="Correo Electrónico"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        placeholder="Nombre de usuario"
+        value={username}
+        onChangeText={setUsername}
+        autoCapitalize="none"
       />
+
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
@@ -62,63 +55,52 @@ const Login = ({ navigation }) => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleLogin}
-        disabled={isLoading}
-      >
-        <Text style={styles.buttonText}>{isLoading ? 'Cargando...' : 'Iniciar Sesión'}</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity
-        onPress={() => navigation.navigate('SignUp')} // Redirige a la pantalla de registro si es necesario
-      >
-        <Text style={styles.link}>¿No tienes cuenta? Regístrate aquí</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
+export default Login;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F8F9FA',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5',
+    paddingHorizontal: 30,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 40,
+    color: '#4CAF50',
   },
   input: {
     width: '100%',
-    padding: 12,
-    marginBottom: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    height: 50,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 20,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: '#DDD',
   },
   button: {
-    width: '100%',
-    padding: 15,
     backgroundColor: '#4CAF50',
+    paddingVertical: 15,
+    width: '100%',
+    borderRadius: 10,
     alignItems: 'center',
-    borderRadius: 5,
+    marginTop: 10,
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 18,
+    color: '#FFFFFF',
+    fontSize: 16,
     fontWeight: 'bold',
   },
-  link: {
-    marginTop: 10,
-    color: '#007BFF',
-    fontSize: 14,
-  },
 });
-
-export default Login;

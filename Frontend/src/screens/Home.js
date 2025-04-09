@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Image, ScrollView, StyleSheet, TouchableOpacity, SafeAreaView,Platform,Dimensions } from 'react-native';
 
 const colors = {
-    primary: '#625dff',
     white: '#FFFFFF',
     background: '#f9f9f9',
     text: '#333333',
@@ -12,15 +11,15 @@ const colors = {
 const { width } = Dimensions.get('window');
 
 const categories = [
-    { id: "1", title: "Anime", imageUrl: "https://i.pinimg.com/736x/0f/e6/49/0fe6495c2f0ffe1b753cc0ab4b4f8de1.jpg"},
+    { id: "1", title: "Anime", imageUrl: "https://i.pinimg.com/736x/0f/e6/49/0fe6495c2f0ffe1b753cc0ab4b4f8de1.jpg", description: 'Consola de última generación con SSD ultrarrápido, soporte para 4K/120fps y tecnología haptic feedback en los mandos.'},
     { id: "2", title: "Max Factory", imageUrl: "https://i.pinimg.com/736x/5e/c9/e2/5ec9e2efdd77f0c90126ea1b812762db.jpg"},
     { id: "3", title: "Mecas", imageUrl: "https://i.pinimg.com/736x/98/e2/9c/98e29c200986e4280accf96ddd05a47d.jpg"},
     { id: "4", title: "Juguetes", imageUrl: "https://i.pinimg.com/736x/3d/f7/a1/3df7a1ad76a2bfd7e51e00ffb8b90a13.jpg"},
 ];
 
 const carouselImages = [
-    "https://i.pinimg.com/736x/82/b1/bc/82b1bc7a317a2d366495a52105bd82f1.jpg",
     "https://i.pinimg.com/736x/2b/74/ea/2b74ea0945047f551482731059a8fb1f.jpg",
+    "https://i.pinimg.com/736x/82/b1/bc/82b1bc7a317a2d366495a52105bd82f1.jpg",
     "https://i.pinimg.com/736x/76/b1/f7/76b1f7e88a85b1f957ebc5da70e82090.jpg",
     "https://i.pinimg.com/736x/a7/57/59/a75759cdfa03a19f3b6df9eb890418cd.jpg",
 ];
@@ -29,7 +28,7 @@ const Home = () => {
     const [currentImage, setCurrentImage] = useState(0);
 
     const goToNextImage = () => {
-        setCurrentImage((prev) => 
+        setCurrentImage((prev) =>
             prev === carouselImages.length - 1 ? 0 : prev + 1
         );
     };
@@ -111,9 +110,10 @@ const styles = StyleSheet.create({
     scrollContent: {
         paddingHorizontal: 20,
         paddingBottom: 30,
-    },
+    },    primary: '#625dff',
+
     welcomeContainer: {
-        backgroundColor: colors.primary,
+        backgroundColor: '#8784ea',
         borderRadius: 15,
         padding: 20,
         marginBottom: 25,
@@ -132,7 +132,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     welcomeSubText: {
-        fontSize: 16,
+        fontSize: 16,    primary: '#625dff',
+
         color: colors.white,
         fontWeight: "500",
         textAlign: 'center'

@@ -143,6 +143,7 @@ const Shipments = () => {
               <Text style={styles.carrierPrice}>{carrier.price}</Text>
             </TouchableOpacity>
           ))}
+            
 
           <View style={styles.summaryCard}>
             <Text style={styles.summaryTitle}>Resumen</Text>
@@ -160,12 +161,15 @@ const Shipments = () => {
                 ${selectedOption === 'correos' ? '3,499' : '3,598'}
               </Text>
             </View>
+            <View style={styles.summaryCard2}>
+            <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
+              <Text style={styles.confirmButtonText}>Confirmar Envío</Text>
+            </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
 
-        <TouchableOpacity style={styles.confirmButton} onPress={handleConfirm}>
-          <Text style={styles.confirmButtonText}>Confirmar Envío</Text>
-        </TouchableOpacity>
+        
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -273,6 +277,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 16,
     marginTop: 20,
+  },
+  summaryCard2: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 16,
+    marginTop: 70,
   },
   summaryTitle: {
     fontWeight: 'bold',
