@@ -1,16 +1,13 @@
 import bodyParser from "body-parser";
 import express from "express";
 import usersRoutes from "./routes/productRoutes.js";
-import swaggerSpec from "./api-docs.js";
-import swaggerUI from "swagger-ui-express";
 
 const app = express();
 
-app.use(bodyParser.json());
+// Middleware para parsear JSON
+app.use(express.json({ limit: '15mb' }));  // Establecer el límite en 10 MB
 
-app.use('/api/products', usersRoutes);
-app.use('/api-docs', swaggerUI.serve,
-    swaggerUI.setup(swaggerSpec));
-
+// Rutas de productos
+app.use("/api/products", usersRoutes);
 
 export default app;
