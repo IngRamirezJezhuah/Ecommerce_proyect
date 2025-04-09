@@ -1,6 +1,3 @@
-Aquí va un mensaje épico para tu README o mensaje final de proyecto:
-
----
 
 **¡Proyecto Final - Ecommerce Proyect!**
 
