@@ -11,15 +11,15 @@ const Shipments = () => {
   const products = [
     {
       id: '1',
-      name: 'PlayStation 5',
+      name: 'Shoto Todoroki',
       weight: '4.5 kg',
       dimensions: '39cm x 26cm x 10cm',
       fragile: true,
-      specialInstructions: 'Manejar con cuidado - electrónico delicado'
+      specialInstructions: 'Manejar con cuidado - Figura delicado'
     },
     {
       id: '2',
-      name: 'Jarrón de cerámica',
+      name: 'Frieren',
       weight: '2.1 kg',
       dimensions: '30cm x 30cm x 40cm',
       fragile: true,
